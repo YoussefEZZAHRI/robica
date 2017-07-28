@@ -8,147 +8,134 @@
 <title>Ma Boutique en ligne</title>
 </head>
 <body>
-<div layout:fragment="content">
-<div class="container">
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
 
-        <div class="row">
+					<div class="list-group">
+						<a href="#ajout" class="list-group-item">Ajouter un produit</a> <a
+							href="#suppression" class="list-group-item">Supprimer un
+							produit</a> <a href="#modification" class="list-group-item">Modifier
+							un produit</a> <a href="#recherche" class="list-group-item">chercher
+							un produit</a>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="panel panel-default">
+						<div class="panel-heading">liste des articles</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<tr>
+									<th>reference</th>
+									<th>qte</th>
+									<th>seuil</th>
+									<th>libelle</th>
+									<th>observation</th>
+									<th>rayon</th>
+								</tr>
+								<tr th:each="o:${listArticle}">
+									<td th:text="${o.reference}"></td>
+									<td th:text="${o.qtestock}"></td>
+									<td th:text="${o.seuil}"></td>
+									<td th:text="${o.libelle}"></td>
+									<td th:text="${o.observation}"></td>
+									<td th:text="${o.rayon}"></td>
+								</tr>
+							</table>
+							<div class="container">
+								<ul class="nav nav-pills">
+									<li th:each="p,status:${pages}"><a
+										th:href="@{/articles(page=${status.index})}"
+										th:text="${status.index}"></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-            <div class="col-md-3">
-                
-                <div class="list-group">
-                    <a href="#ajout" class="list-group-item">Ajouter un produit</a>
-                    <a href="#suppression" class="list-group-item">Supprimer un produit</a>
-                    <a href="#modification" class="list-group-item">Modifier un produit</a>
-                     <a href="#recherche" class="list-group-item">chercher un produit</a>
-                </div>
-            </div>
-            
-            
-            
-            <div class="col-md-9">
-            
-            <div class="panel panel-default" >
-				<div class="panel-heading">liste des articles</div>
-				<div class="panel-body">
-				<table class="table table-striped">
-					<tr>
-						<th>reference</th>
-						<th>qte</th>
-						<th>seuil</th>
-						<th>libelle</th>
-						<th>observation</th>
-						<th>rayon</th>
-						
-					</tr>
-					<tr th:each="o:${listArticle}">
-						<td th:text="${o.reference}"></td>
-						<td th:text="${o.qtestock}"></td>
-						<td th:text="${o.seuil}"></td>
-						<td th:text="${o.libelle}"></td>
-						<td th:text="${o.observation}"></td>
-						<td th:text="${o.rayon}"></td>
-					</tr>
-				</table>
-				<div class="container">
-				<ul class="nav nav-pills">
-				<li th:each="p,status:${pages}">
-				<a th:href="@{/articles(page=${status.index})}" th:text="${status.index}"></a></li>
-				</ul>
 				</div>
-				</div>
+
 			</div>
-            
-            </div>
-
-</div></div>
-
-
-	
+		</div>
 		<div class="col-md-6">
-				<div class="panel panel-default" th:if="@{/articles#ajout}">
+			<div class="panel panel-default" th:if="@{/articles#ajout}">
 				<div class="panel-heading">ajouter une article</div>
 				<div class="panel-body">
-					<form th:action="@{/ajouterArticle}" th:object="${article}" method="post">
+					<form th:action="@{/ajouterArticle}" th:object="${article}"
+						method="post">
 						<div>
-							<label>réf article:</label> <input type="text" name="reference" th:value="${reference}"/>
-							<label>qte en stock:</label> <input type="text" name="qtestock" th:value="${qtestock}"/>
-							<label>seuil article:</label> <input type="text" name="seuil" th:value="${seuil}"/>
-							<label>Libelle article:</label> <input type="text" name="libelle" th:value="${libelle}"/>
-							<label>observation article:</label> <input type="text" name="observation" th:value="${observation}"/>
-							<label>rayon article:</label> <input type="text" name="rayon" th:value="${rayon}"/>
-							
+							<label>réf article:</label> <input type="text" name="reference"
+								th:value="${reference}" /> <label>qte en stock:</label> <input
+								type="text" name="qtestock" th:value="${qtestock}" /> <label>seuil
+								article:</label> <input type="text" name="seuil" th:value="${seuil}" />
+							<label>Libelle article:</label> <input type="text" name="libelle"
+								th:value="${libelle}" /> <label>observation article:</label> <input
+								type="text" name="observation" th:value="${observation}" /> <label>rayon
+								article:</label> <input type="text" name="rayon" th:value="${rayon}" />
 							<button type="submit" class="btn btn-primary">ajouter</button>
 						</div>
 					</form>
-					<div class="text-danger"  th:if="${exception}" th:text="${exception.message}"></div>
+					<div class="text-danger" th:if="${exception}"
+						th:text="${exception.message}"></div>
 				</div>
 			</div>
-			
-			<div class="panel panel-default">
-				<div class="panel-heading">Supprimer une article</div>
+			<div class=" panel panel-default">
+				<div class="panel-heading">Supprimer un article</div>
 				<div class="panel-body">
-					<form th:action="@{/supprimerArticle}" th:object="${article}" method="post">
+					<form th:action="@{/supprimerArticle}" th:object="${article}"
+						method="post">
 						<div>
-							<label>réf article:</label> <input type="text" name="reference" th:value="${reference}"/>
+							<label>réf article:</label> <input type="text" name="reference"
+								th:value="${reference}" />
 							<button type="submit" class="btn btn-primary">supprimer</button>
 						</div>
 					</form>
-					<div class="text-danger"  th:if="${exception}" th:text="${exception.message}"></div>
+					<div class="text-danger" th:if="${exception}"
+						th:text="${exception.message}"></div>
 				</div>
 			</div>
-		
 			<div class="panel panel-default">
 				<div class="panel-heading">Consultation d'une article</div>
 				<div class="panel-body">
 					<form th:action="@{/consulterArticle}" method="get">
 						<div>
-							<label>réf article:</label> <input type="text" name="reference" th:value="${reference}"/>
+							<label>réf article:</label> <input type="text" name="reference"
+								th:value="${reference}" />
 							<button type="submit" class="btn btn-primary">Ok</button>
 						</div>
 					</form>
-					<div class="text-danger"  th:if="${exception}" th:text="${exception.message}"></div>
+					<div class="text-danger" th:if="${exception}"
+						th:text="${exception.message}"></div>
 				</div>
 			</div>
-			</div>
-			<div class="col-md-6">
-			
-				
-			
-			
-			
+		</div>
+		<div class="col-md-6">
 			<div class="panel panel-default" th:if="${article}">
 				<div class="panel-heading">Informations sur l'article</div>
 				<div class="panel-body">
-<div>
-					<label>Réference :</label> <label th:text="${article.reference}"></label>
+					<div>
+						<label>Réference :</label> <label th:text="${article.reference}"></label>
+					</div>
+					<div>
+						<label>Quantité en stock :</label> <label
+							th:text="${article.qtestock}"></label>
+					</div>
+					<div>
+						<label>Seuil :</label> <label th:text="${article.seuil}"></label>
+					</div>
+					<div>
+						<label>Libelle :</label> <label th:text="${article.libelle}"></label>
+					</div>
+					<div>
+						<label>Observation :</label> <label
+							th:text="${article.observation}"></label>
+					</div>
+					<div>
+						<label>Rayon :</label> <label th:text="${article.rayon}"></label>
+					</div>
 				</div>
-				<div>
-					<label>Quantité en stock :</label> <label th:text="${article.qtestock}"></label>
-				</div>
-
-				<div>
-					<label>Seuil :</label> <label th:text="${article.seuil}"></label>
-				</div>
-
-				<div>
-					<label>Libelle :</label> <label
-						th:text="${article.libelle}"></label>
-				</div>
-
-				<div>
-					<label>Observation :</label> <label th:text="${article.observation}"></label>
-				</div>
-
-				<div><label>Rayon :</label> <label th:text="${article.rayon}"></label></div>
-				</div></div>
-			
 			</div>
-			
-		
-		
 		</div>
-
-
-
+	</div>
 </body>
 </html>
